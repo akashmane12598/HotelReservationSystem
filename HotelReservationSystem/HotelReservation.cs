@@ -156,6 +156,7 @@ namespace HotelReservationSystem
 
                     }
                 }
+
                 hotelDetails.Add("Lakewood", rateOfLake);
                 hotelDetails.Add("Bridgewood", rateOfBridge);
                 hotelDetails.Add("Ridgewood", rateOfRidge);
