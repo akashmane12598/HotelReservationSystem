@@ -308,5 +308,134 @@ namespace HotelReservationSystem
                 throw new HotelCustomException(HotelCustomException.ExceptionType.INVALID_CUSTOMER_TYPE, "Invalid Customer Type");
             }
         }
+
+        /// <summary>
+        /// UC7 Find the Best Hotel for a given date
+        /// </summary>
+        /// <param name="customerType"></param>
+        /// <param name="dates"></param>
+        /// <returns></returns>
+        public Dictionary<string, int> FindBestRatingHotel(string customerType, string[] dates)
+        {
+            Dictionary<string, int> hotelDetails = new Dictionary<string, int>();
+
+            if (customerType.Equals("Regular"))
+            {
+                int rateOfLake = 0;
+                int rateOfBridge = 0;
+                int rateOfRidge = 0;
+                foreach (string date in dates)
+                {
+                    string day = DateTime.Parse(date).DayOfWeek.ToString();
+
+                    if (day.Equals("Saturday") || day.Equals("Sunday"))
+                    {
+                        rateOfLake += 90;
+                        rateOfBridge += 60;
+                        rateOfRidge += 150;
+                    }
+                    else
+                    {
+                        AddHotel("Lakewood", customerType);
+                        rateOfLake = list.Where(x => x.hotelName.Equals("Lakewood")).Sum(x => x.rates);
+
+                        AddHotel("Bridgewood", customerType);
+                        rateOfBridge = list.Where(x => x.hotelName.Equals("Bridgewood")).Sum(x => x.rates);
+
+                        AddHotel("Ridgewood", customerType);
+                        rateOfRidge = list.Where(x => x.hotelName.Equals("Ridgewood")).Sum(x => x.rates);
+
+                    }
+                }
+                hotelDetails.Add("Lakewood", rateOfLake);
+                hotelDetails.Add("Bridgewood", rateOfBridge);
+                hotelDetails.Add("Ridgewood", rateOfRidge);
+
+                int max = hotelDetails.Select(x => x.Value).Max();
+
+                Dictionary<string, int> bestHotel = new Dictionary<string, int>();
+
+                foreach (KeyValuePair<string, int> kv in hotelDetails)
+                {
+                    if (kv.Value == max)
+                    {
+                        if (kv.Key.Equals("Ridgewood"))
+                        {
+                            bestHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Bridgewood"))
+                        {
+                            bestHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Lakewood"))
+                        {
+                            bestHotel.Add(kv.Key, kv.Value);
+                        }
+                    }
+                }
+                return bestHotel;
+            }
+            else if (customerType.Equals("Rewards"))
+            {
+                int rateOfLake = 0;
+                int rateOfBridge = 0;
+                int rateOfRidge = 0;
+                foreach (string date in dates)
+                {
+                    string day = DateTime.Parse(date).DayOfWeek.ToString();
+
+                    if (day.Equals("Saturday") || day.Equals("Sunday"))
+                    {
+                        rateOfLake += 90;
+                        rateOfBridge += 60;
+                        rateOfRidge += 150;
+                    }
+                    else
+                    {
+                        AddHotel("Lakewood", customerType);
+                        rateOfLake = list.Where(x => x.hotelName.Equals("Lakewood")).Sum(x => x.rates);
+
+                        AddHotel("Bridgewood", customerType);
+                        rateOfBridge = list.Where(x => x.hotelName.Equals("Bridgewood")).Sum(x => x.rates);
+
+                        AddHotel("Ridgewood", customerType);
+                        rateOfRidge = list.Where(x => x.hotelName.Equals("Ridgewood")).Sum(x => x.rates);
+
+                    }
+                }
+
+                hotelDetails.Add("Lakewood", rateOfLake);
+                hotelDetails.Add("Bridgewood", rateOfBridge);
+                hotelDetails.Add("Ridgewood", rateOfRidge);
+
+                int max = hotelDetails.Select(x => x.Value).Max();
+
+                Dictionary<string, int> bestHotel = new Dictionary<string, int>();
+
+                foreach (KeyValuePair<string, int> kv in hotelDetails)
+                {
+                    if (kv.Value == max)
+                    {
+                        if (kv.Key.Equals("Ridgewood"))
+                        {
+                            bestHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Bridgewood"))
+                        {
+                            bestHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Lakewood"))
+                        {
+                            bestHotel.Add(kv.Key, kv.Value);
+                        }
+                    }
+                }
+                return bestHotel;
+            }
+            else
+            {
+                throw new HotelCustomException(HotelCustomException.ExceptionType.INVALID_CUSTOMER_TYPE, "Invalid Customer Type");
+            }
+        }
     }
 }
