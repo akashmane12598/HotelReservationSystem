@@ -33,11 +33,11 @@ namespace HotelReservationSystemTest
         [TestMethod]
         public void FindCheapestHotelForGivenDate_TC2()
         {
-            string[] date = "10Sep2020,11Sep2020".Split(",");
+            string[] date = "11Sep2020,12Sep2020".Split(",");
 
             string expectedHotel = "Lakewood";
 
-            int expectedRate = 220;
+            int expectedRate = 200;
 
             string actualHotel="";
 
