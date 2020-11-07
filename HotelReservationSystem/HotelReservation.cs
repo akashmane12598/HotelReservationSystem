@@ -179,5 +179,134 @@ namespace HotelReservationSystem
                 throw new HotelCustomException(HotelCustomException.ExceptionType.INVALID_CUSTOMER_TYPE,"Invalid Customer Type");
             }
         }
+
+        /// <summary>
+        /// UC6 Find the Cheapest Hotel and it's Rate for a given date
+        /// </summary>
+        /// <param name="customerType"></param>
+        /// <param name="dates"></param>
+        /// <returns></returns>
+        public Dictionary<string, int> FindCheapestRatesAndBestRatingHotel(string customerType, string[] dates)
+        {
+            Dictionary<string, int> hotelDetails = new Dictionary<string, int>();
+
+            if (customerType.Equals("Regular"))
+            {
+                int rateOfLake = 0;
+                int rateOfBridge = 0;
+                int rateOfRidge = 0;
+                foreach (string date in dates)
+                {
+                    string day = DateTime.Parse(date).DayOfWeek.ToString();
+
+                    if (day.Equals("Saturday") || day.Equals("Sunday"))
+                    {
+                        rateOfLake += 90;
+                        rateOfBridge += 60;
+                        rateOfRidge += 150;
+                    }
+                    else
+                    {
+                        AddHotel("Lakewood", customerType);
+                        rateOfLake = list.Where(x => x.hotelName.Equals("Lakewood")).Sum(x => x.rates);
+
+                        AddHotel("Bridgewood", customerType);
+                        rateOfBridge = list.Where(x => x.hotelName.Equals("Bridgewood")).Sum(x => x.rates);
+
+                        AddHotel("Ridgewood", customerType);
+                        rateOfRidge = list.Where(x => x.hotelName.Equals("Ridgewood")).Sum(x => x.rates);
+
+                    }
+                }
+                hotelDetails.Add("Lakewood", rateOfLake);
+                hotelDetails.Add("Bridgewood", rateOfBridge);
+                hotelDetails.Add("Ridgewood", rateOfRidge);
+
+                int min = hotelDetails.Select(x => x.Value).Min();
+
+                Dictionary<string, int> cheapHotel = new Dictionary<string, int>();
+
+                foreach (KeyValuePair<string, int> kv in hotelDetails)
+                {
+                    if (kv.Value == min)
+                    {
+                        if (kv.Key.Equals("Ridgewood"))
+                        {
+                            cheapHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Bridgewood"))
+                        {
+                            cheapHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Lakewood"))
+                        {
+                            cheapHotel.Add(kv.Key, kv.Value);
+                        }
+                    }
+                }
+                return cheapHotel;
+            }
+            else if (customerType.Equals("Rewards"))
+            {
+                int rateOfLake = 0;
+                int rateOfBridge = 0;
+                int rateOfRidge = 0;
+                foreach (string date in dates)
+                {
+                    string day = DateTime.Parse(date).DayOfWeek.ToString();
+
+                    if (day.Equals("Saturday") || day.Equals("Sunday"))
+                    {
+                        rateOfLake += 90;
+                        rateOfBridge += 60;
+                        rateOfRidge += 150;
+                    }
+                    else
+                    {
+                        AddHotel("Lakewood", customerType);
+                        rateOfLake = list.Where(x => x.hotelName.Equals("Lakewood")).Sum(x => x.rates);
+
+                        AddHotel("Bridgewood", customerType);
+                        rateOfBridge = list.Where(x => x.hotelName.Equals("Bridgewood")).Sum(x => x.rates);
+
+                        AddHotel("Ridgewood", customerType);
+                        rateOfRidge = list.Where(x => x.hotelName.Equals("Ridgewood")).Sum(x => x.rates);
+
+                    }
+                }
+
+                hotelDetails.Add("Lakewood", rateOfLake);
+                hotelDetails.Add("Bridgewood", rateOfBridge);
+                hotelDetails.Add("Ridgewood", rateOfRidge);
+
+                int min = hotelDetails.Select(x => x.Value).Min();
+
+                Dictionary<string, int> cheapHotel = new Dictionary<string, int>();
+
+                foreach (KeyValuePair<string, int> kv in hotelDetails)
+                {
+                    if (kv.Value == min)
+                    {
+                        if (kv.Key.Equals("Ridgewood"))
+                        {
+                            cheapHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Bridgewood"))
+                        {
+                            cheapHotel.Add(kv.Key, kv.Value);
+                        }
+                        else if (kv.Key.Equals("Lakewood"))
+                        {
+                            cheapHotel.Add(kv.Key, kv.Value);
+                        }
+                    }
+                }
+                return cheapHotel;
+            }
+            else
+            {
+                throw new HotelCustomException(HotelCustomException.ExceptionType.INVALID_CUSTOMER_TYPE, "Invalid Customer Type");
+            }
+        }
     }
 }

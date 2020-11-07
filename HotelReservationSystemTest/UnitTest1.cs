@@ -68,5 +68,47 @@ namespace HotelReservationSystemTest
             }
 
         }
+
+        /// <summary>
+        /// TC6 Compare the Cheapest Hotel for Given Date
+        /// </summary>
+        [TestMethod]
+        public void FindCheapestAndBestHotelForGivenDate_TC6()
+        {
+            string[] date = "11Sep2020,12Sep2020".Split(",");
+
+            string expectedHotel = "Bridgewood";
+
+            int expectedRate = 200;
+
+            string actualHotel = "";
+
+            int actualRate = 0;
+
+            try
+            {
+
+                HotelReservation reservation = new HotelReservation();
+
+                Dictionary<string, int> hotel = reservation.FindCheapestRatesAndBestRatingHotel("Regular", date);
+
+                foreach (KeyValuePair<string, int> kv in hotel)
+                {
+                    actualHotel = kv.Key;
+
+                    actualRate = kv.Value;
+                }
+
+                Assert.AreEqual(expectedHotel, actualHotel);
+
+                Assert.AreEqual(expectedRate, actualRate);
+
+            }
+            catch (HotelCustomException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
     }
 }
