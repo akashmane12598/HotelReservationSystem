@@ -257,9 +257,9 @@ namespace HotelReservationSystem
 
                     if (day.Equals("Saturday") || day.Equals("Sunday"))
                     {
-                        rateOfLake += 90;
-                        rateOfBridge += 60;
-                        rateOfRidge += 150;
+                        rateOfLake += 80;
+                        rateOfBridge += 50;
+                        rateOfRidge += 40;
                     }
                     else
                     {
@@ -386,9 +386,9 @@ namespace HotelReservationSystem
 
                     if (day.Equals("Saturday") || day.Equals("Sunday"))
                     {
-                        rateOfLake += 90;
-                        rateOfBridge += 60;
-                        rateOfRidge += 150;
+                        rateOfLake += 80;
+                        rateOfBridge += 50;
+                        rateOfRidge += 40;
                     }
                     else
                     {

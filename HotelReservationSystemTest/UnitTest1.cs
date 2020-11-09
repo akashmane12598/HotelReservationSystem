@@ -152,5 +152,46 @@ namespace HotelReservationSystemTest
             }
 
         }
+
+        /// <summary>
+        /// TC10 FindCheapestAndBestHotelForRewardedCustomers
+        /// </summary>
+        [TestMethod]
+        public void FindCheapestAndBestHotelForRewardedCustomers_TC10()
+        {
+            string[] date = "11Sep2020,12Sep2020".Split(",");
+
+            string expectedHotel = "Ridgewood";
+
+            int expectedRate = 140;
+
+            string actualHotel = "";
+
+            int actualRate = 0;
+
+            try
+            {
+
+                HotelReservation reservation = new HotelReservation();
+
+                Dictionary<string, int> hotel = reservation.FindCheapestRatesAndBestRatingHotel("Rewards", date);
+
+                foreach (KeyValuePair<string, int> kv in hotel)
+                {
+                    actualHotel = kv.Key;
+
+                    actualRate = kv.Value;
+                }
+
+                Assert.AreEqual(expectedHotel, actualHotel);
+
+                Assert.AreEqual(expectedRate, actualRate);
+
+            }
+            catch (HotelCustomException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }
