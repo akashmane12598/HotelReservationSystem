@@ -48,6 +48,8 @@ namespace HotelReservationSystemTest
 
                 HotelReservation reservation = new HotelReservation();
 
+                string[] days = DateValidation.Validate(date);
+
                 Dictionary<string, int> hotel = reservation.FindCheapestRates("Regular", date);
 
                 foreach(KeyValuePair<string, int> kv in hotel)
@@ -89,6 +91,8 @@ namespace HotelReservationSystemTest
             {
 
                 HotelReservation reservation = new HotelReservation();
+
+                string[] days = DateValidation.Validate(date);
 
                 Dictionary<string, int> hotel = reservation.FindCheapestRatesAndBestRatingHotel("Regular", date);
 
@@ -132,6 +136,8 @@ namespace HotelReservationSystemTest
 
                 HotelReservation reservation = new HotelReservation();
 
+                string[] days = DateValidation.Validate(date);
+
                 Dictionary<string, int> hotel = reservation.FindBestRatingHotel("Regular", date);
 
                 foreach (KeyValuePair<string, int> kv in hotel)
@@ -174,6 +180,8 @@ namespace HotelReservationSystemTest
 
                 HotelReservation reservation = new HotelReservation();
 
+                string[] days = DateValidation.Validate(date);
+
                 Dictionary<string, int> hotel = reservation.FindCheapestRatesAndBestRatingHotel("Rewards", date);
 
                 foreach (KeyValuePair<string, int> kv in hotel)
@@ -189,6 +197,27 @@ namespace HotelReservationSystemTest
 
             }
             catch (HotelCustomException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// TC11 HandleExceptionForInvalidDate
+        /// </summary>
+        /// <param name="date"></param>
+        [TestMethod]
+        [DataRow("112020,12Nov2020")]
+        [DataRow("11Novem2020,12thNov2020")]
+        public void HandleExceptionForInvalidDate_TC11(string date)
+        {
+            string[] dates = date.Split(",");
+
+            try
+            {
+                string[] days = DateValidation.Validate(dates);
+            }
+            catch(HotelCustomException e)
             {
                 Console.WriteLine(e.Message);
             }
